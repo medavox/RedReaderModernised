@@ -139,39 +139,39 @@ class ImageViewActivity : BaseActivity(), PostSelectionListener,
         mPost = intent.getParcelableExtra("post")
         if (intent.hasExtra("albumUrl")) {
             LinkHandler.getAlbumInfo(
-                this,
-                intent.getStringExtra("albumUrl"),
-                Priority(Constants.Priority.IMAGE_VIEW),
-                object : GetAlbumInfoListener {
-                    override fun onFailure(
-                        @RequestFailureType type: Int,
-                        t: Throwable,
-                        status: Int,
-                        readableMessage: String,
-                        body: Optional<FailedRequestBody>
-                    ) {
+				context = this,
+				url = intent.getStringExtra("albumUrl")!!,
+				priority = Priority(Constants.Priority.IMAGE_VIEW),
+				listener = object : GetAlbumInfoListener {
+					override fun onFailure(
+						@RequestFailureType type: Int,
+						t: Throwable,
+						status: Int,
+						readableMessage: String,
+						body: Optional<FailedRequestBody>
+					) {
 
-                        // Do nothing
-                    }
+						// Do nothing
+					}
 
-                    override fun onGalleryRemoved() {
-                        // Do nothing
-                    }
+					override fun onGalleryRemoved() {
+						// Do nothing
+					}
 
-                    override fun onGalleryDataNotPresent() {
-                        // Do nothing
-                    }
+					override fun onGalleryDataNotPresent() {
+						// Do nothing
+					}
 
-                    override fun onSuccess(info: AlbumInfo) {
-                        AndroidCommon.UI_THREAD_HANDLER.post {
-                            mAlbumInfo = info
-                            mAlbumImageIndex = intent.getIntExtra(
-                                "albumImageIndex",
-                                0
-                            )
-                        }
-                    }
-                }
+					override fun onSuccess(info: AlbumInfo) {
+						AndroidCommon.UI_THREAD_HANDLER.post {
+							mAlbumInfo = info
+							mAlbumImageIndex = intent.getIntExtra(
+								"albumImageIndex",
+								0
+							)
+						}
+					}
+				}
             )
         }
         val progressBar = DonutProgress(this)
