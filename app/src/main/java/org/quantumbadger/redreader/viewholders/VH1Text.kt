@@ -12,26 +12,23 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with RedReader.  If not, see <http://www.gnu.org/licenses/>.
- ******************************************************************************/
+ * along with RedReader.  If not, see <http:></http:>//www.gnu.org/licenses/>.
+ */
+package org.quantumbadger.redreader.viewholders
 
-package org.quantumbadger.redreader.viewholders;
-
-import android.view.View;
-import android.widget.TextView;
-import androidx.recyclerview.widget.RecyclerView;
-import org.quantumbadger.redreader.R;
+import android.view.View
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+import org.quantumbadger.redreader.R
 
 /**
  * A view holder for a one line, text only list item.
  */
-public class VH1Text extends RecyclerView.ViewHolder {
+class VH1Text(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    @JvmField
+	val text: TextView
 
-	public final TextView text;
-
-	public VH1Text(final View itemView) {
-		super(itemView);
-
-		text = itemView.findViewById(R.id.recycler_item_text);
-	}
+    init {
+        text = itemView.findViewById(R.id.recycler_item_text)
+    }
 }
