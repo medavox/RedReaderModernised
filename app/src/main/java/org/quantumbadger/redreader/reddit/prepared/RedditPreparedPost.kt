@@ -97,7 +97,7 @@ class RedditPreparedPost(
     private val mChangeDataManager: RedditChangeDataManager
     val isArchived: Boolean
     @JvmField
-	val isLocked: Boolean
+    val isLocked: Boolean
     val canModerate: Boolean
     @JvmField val hasThumbnail: Boolean
     val mIsProbablyAnImage: Boolean
@@ -226,11 +226,11 @@ class RedditPreparedPost(
                 R.attr.rrGoldBackCol
             )
         )
-		val boldCol: Int = if (headerMode) {
-			Color.WHITE
-		} else {
-			appearance.getColor(0, 255)
-		}
+        val boldCol: Int = if (headerMode) {
+            Color.WHITE
+        } else {
+            appearance.getColor(0, 255)
+        }
         val rrPostSubtitleUpvoteCol = appearance.getColor(1, 255)
         val rrPostSubtitleDownvoteCol = appearance.getColor(2, 255)
         val rrFlairBackCol = appearance.getColor(3, 255)
@@ -799,7 +799,7 @@ class RedditPreparedPost(
     }
 
     fun action(
-        activity: AppCompatActivity?,
+        activity: AppCompatActivity,
         @RedditAction action: Int
     ) {
         val user = RedditAccountManager.getInstance(activity).defaultAccount
@@ -1115,7 +1115,7 @@ class RedditPreparedPost(
     companion object {
         private const val TAG = "RedditPreparedPost"
         @JvmStatic
-		fun showActionMenu(
+        fun showActionMenu(
             activity: BaseActivity,
             post: RedditPreparedPost
         ) {
@@ -1461,7 +1461,7 @@ class RedditPreparedPost(
         }
 
         @JvmStatic
-		fun onActionMenuItemSelected(
+        fun onActionMenuItemSelected(
             post: RedditPreparedPost,
             activity: BaseActivity,
             action: Action?
@@ -1806,8 +1806,8 @@ class RedditPreparedPost(
                 } catch (e: InvalidSubredditNameException) {
                     throw RuntimeException(e)
                 }
-				null -> return
-			}
+                null -> return
+            }
         }
 
         // lol, reddit api

@@ -367,7 +367,7 @@ public class PostSubmitContentFragment extends Fragment {
 				mSelectedSubreddit,
 				new RedditAPI.FlairSelectorResponseHandler() {
 					@Override
-					public void onSuccess(@NonNull final Collection<RedditFlairChoice> choices) {
+					public void onSuccess(@NonNull final Collection<? extends RedditFlairChoice> choices) {
 
 						AndroidCommon.runOnUiThread(() -> {
 
@@ -382,7 +382,7 @@ public class PostSubmitContentFragment extends Fragment {
 								disableFlairSpinner(R.string.post_submit_flair_none_available);
 
 							} else {
-								enableFlairSpinner(choices);
+								enableFlairSpinner((Collection<RedditFlairChoice>) choices);
 							}
 						});
 					}
