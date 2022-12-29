@@ -80,7 +80,6 @@ android {
 	lintOptions {
 		checkReleaseBuilds false
 		abortOnError true
-		warningsAsErrors true
 
 		error 'DefaultLocale'
 

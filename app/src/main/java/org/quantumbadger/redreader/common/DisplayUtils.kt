@@ -12,33 +12,23 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with RedReader.  If not, see <http://www.gnu.org/licenses/>.
- ******************************************************************************/
+ * along with RedReader.  If not, see <http:></http:>//www.gnu.org/licenses/>.
+ */
+package org.quantumbadger.redreader.common
 
-package org.quantumbadger.redreader.cache;
+import android.graphics.Rect
+import org.quantumbadger.redreader.activities.BaseActivity
+import org.quantumbadger.redreader.common.DisplayUtils
 
-import androidx.annotation.NonNull;
-
-public enum CacheCompressionType {
-
-	NONE(0),
-	ZSTD(1);
-
-	public final int databaseId;
-
-	CacheCompressionType(final int databaseId) {
-		this.databaseId = databaseId;
-	}
-
-	@NonNull
-	public static CacheCompressionType fromDatabaseId(final int databaseId) {
-
-		for(final CacheCompressionType type : values()) {
-			if(type.databaseId == databaseId) {
-				return type;
-			}
-		}
-
-		throw new RuntimeException("Unknown compression type " + databaseId);
-	}
+object DisplayUtils {
+    private val sWindowVisibleDisplayFrame = Rect()
+    @JvmStatic
+	fun getWindowVisibleDisplayFrame(
+        activity: BaseActivity
+    ): Rect {
+        activity.window.decorView.getWindowVisibleDisplayFrame(
+            sWindowVisibleDisplayFrame
+        )
+        return sWindowVisibleDisplayFrame
+    }
 }
