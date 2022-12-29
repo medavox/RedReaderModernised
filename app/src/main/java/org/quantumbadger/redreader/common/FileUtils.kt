@@ -185,7 +185,7 @@ object FileUtils {
 
     @JvmStatic
 	fun isCacheDiskFull(context: Context?): Boolean {
-        val space = getFreeSpaceAvailable(PrefsUtility.pref_cache_location(context))
+        val space = getFreeSpaceAvailable(PrefsUtility.pref_cache_location(context!!))
         return space < 128 * 1024 * 1024
     }
 
