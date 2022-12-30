@@ -1,85 +1,68 @@
-RedReader
+RedReader Code Modernisation Project 
 =========
 
-An unofficial, open source Android client for Reddit.
 
-![CI](https://github.com/QuantumBadger/RedReader/workflows/CI/badge.svg?branch=master)
-[![Translation status](https://hosted.weblate.org/widgets/redreader/-/svg-badge.svg)](https://hosted.weblate.org/engage/redreader/?utm_source=widget)
+The RedReader app is absolutely great, and I use it nearly every day.
 
-[<img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png"
-      alt="Get it on Google Play"
-      height="80">](https://play.google.com/store/apps/details?id=org.quantumbadger.redreader)
-[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
-     alt="Get it on F-Droid"
-     height="80">](https://f-droid.org/packages/org.quantumbadger.redreader/)
+But the codebase is mostly stuck around 2014, except for the use of Gradle.
 
-Features
---------
+This fork's aim is to gradually bring it up to date with modern android development practises.
 
-* Free and open-source Software - no ads/tracking
-* Lightweight and fast
-* Swipe posts left and right to perform customizable actions, such as
-    upvote/downvote, or save/hide
-* Advanced cache management - automatically stores past versions of posts and
-    comments
-* Support for multiple accounts
-* Two-column tablet mode (can be used on your phone, if it’s big enough)
-* Image and comment precaching (optional: always, never, or Wi-Fi only)
-* Built-in image viewer, and GIF/video player
-* Multiple themes, including night mode, and ultra black for AMOLED displays
-* Support for Android 4.0+
+This should make it easier for other android devs to provide code contributions, 
+and should (hopefully) reduce the maintenance burden and development time required to add new features.
 
+I've read `CONTRIBUTING.md`, and it sounds like these changes may not be accepted into the main repository.
+Given the time cost to retrain from RedReader's code style to modernity, that is understandable.
 
-Downloading
------------
+But this is an itch I need to scratch either way.
 
-RedReader is available for free on the Google Play store:
+I don't intend to take on the long-term responsibility of maintaining a separate app once/if the refactoring is done,
+so I'm hoping someone (maybe QuantumBadger) will be interested in taking this on.
 
-https://play.google.com/store/apps/details?id=org.quantumbadger.redreader
+# ROUGH ROADMAP
 
-RedReader can also be found for free on F-Droid:
+## Step 1: Doing Now
 
-https://f-droid.org/app/org.quantumbadger.redreader
+### Convert all Java to Kotlin
 
-The Google Play APKs are also available here:
+Kotlin brings a number of well-documented advantages over Java 7, which is what this codebase is written in now.
 
-https://github.com/QuantumBadger/RedReader/releases
+### Replace Reinvented Wheels/Manually-Backported Code
 
+This repo contains a number of classes which duplicate functionality in later versions of Java, 
+or which are usually provided by a well-known library in modern android development.
 
-Translating
------------
+These are an unnecessary burden on the maintainer, and can potentially introduce (or miss fixes for) bugs.
 
-Please help us translate RedReader into new languages, or improve the
-translations for existing languages!
+examples identified so far:
 
-https://hosted.weblate.org/projects/redreader/strings/
+* Optional & Consumer
+* Stream
+* RRTime uses Joda Time, should be migrated to JSR-310 `java.time`
+* Stack
+* Void
+* UnaryOperator
+* Predicate
 
-[![Translation status](https://hosted.weblate.org/widgets/redreader/-/287x66-grey.png)](https://hosted.weblate.org/engage/redreader/?utm_source=widget)
+### Replace Old Libraries With Newer Ones
 
+Similar to above but less important, this repo still makes use of older libraries for common tasks,
+many of which are now considered suboptimal or deprecated by the Android dev community.
 
-Pull Requests
--------------
+Examples:
 
-Please see the contribution guidelines in
- [CONTRIBUTING.md](CONTRIBUTING.md). 
+* Replace Jackson with Kotlinx.serialize
+* Use Retrofit instead of OkHttp directly
 
+## Step 2: To Do Later
 
-Building
---------
+### Migrate to MVVM Architecture
 
-RedReader is built using Gradle. On Linux, simply run:
+## Step 3: Maybe Do, Maybe not
 
-    ./gradlew installDebug
+### Migrate to Compose
 
+### Migrate to Room
 
-License
--------
-
-RedReader is licensed under the GPL, version 3. A copy of the license is
-included in [LICENSE.txt](LICENSE.txt).
-
-
-Thanks
-------
-
-A full list of contributors is included in the [changelog](assets/changelog.txt).
+### Make Everything Testable
+### Write Tests
